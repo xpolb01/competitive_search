@@ -17,7 +17,7 @@ function State(options){
 State.prototype.move = function(location){
 	if (this.legalMoves().length == 0){
 		throw new Error("No move allowed")
-	};
+	}
 	var ret = new State({
 		width: this.width,
 		height: this.height

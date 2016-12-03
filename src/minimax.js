@@ -143,14 +143,20 @@ You'll also probably need to use state.nextMovePlayer,
 which returns whether the next moving player is 'x' or 'o',
 to see if you are maximizing or minimizing.
 */
-var minimax = function(state, depth, maximizingPlayer) {
+var minimax = function(state, depth, maximizingPlayer, states = []) {
+  if (depth === 0) {
+    return heuristic(state, maximizingPlayer)
+  }
+
   var minimizingPlayer = (state.maximizingPlayer == 'x') ? 'o' : 'x';
   var possibleStates = state.nextStates();
   var currentPlayer = state.nextMovePlayer;
-  //Your code here.
-  return Math.random();
+  for (let i = 0; i < possibleStates.length; i++) {
+    states.push(minimax(possibleStates[i], depth - 1, minimizingPlayer));
+  }
+  console.log(states);
+  return states.sort( ( a, b ) => b - a)[0];
 }
-
 
 
 /* minimaxAlphaBetaWrapper is a pre-written function, but it will not work
